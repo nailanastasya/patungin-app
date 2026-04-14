@@ -12,24 +12,27 @@ export default function LoginPage() {
   const [password, setPassword] = useState("")
 
   const handleLogin = async () => {
-    const res = await fetch("/api/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    })
+  const res = await fetch("/api/auth/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email, password }),
+  })
 
-    if (!res.ok) {
-      alert("Login gagal")
-      return
-    }
-
-    const user = await res.json()
-    localStorage.setItem("user", JSON.stringify(user))
-
-    router.push("/dashboard")
+  if (!res.ok) {
+    alert("Login gagal")
+    return
   }
+
+  const user = await res.json()
+
+  localStorage.setItem("user", JSON.stringify(user))
+
+  document.cookie = `userEmail=${encodeURIComponent(user.email)}; path=/; max-age=86400`
+
+  router.push("/dashboard")
+}
 
   return (
     <div className="min-h-screen bg-surface font-body text-on-surface flex flex-col relative overflow-hidden">
