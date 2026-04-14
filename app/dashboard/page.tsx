@@ -2,32 +2,39 @@ import { prisma } from "@/lib/prisma"
 import { Sidebar } from "@/components/SideBar"
 import { TopBar } from "@/components/TopBar"
 import Dashboard from "@/components/Dashboard"
+import { cookies } from "next/headers"
 
 export default async function DashboardPage() {
-  const user = await prisma.user.findFirst()
+  const cookieStore = await cookies()
+  const email = cookieStore.get("userEmail")?.value
+
+  if (!email) {
+    return <div>Silakan login dulu</div>
+  }
+
+  const user = await prisma.user.findUnique({
+    where: { email },
+  })
 
   if (!user) {
-    return <div>Tidak ada data</div>
+    return <div>User tidak ditemukan</div>
   }
 
   return (
     <div>
-      {/* Sidebar */}
       <Sidebar />
 
-      {/* TopBar */}
       <div className="ml-64">
         <TopBar />
       </div>
 
-      {/* Main Content */}
       <main className="ml-64 pt-20 p-6">
         <Dashboard
-         user={{
-    ...user,
-    name: user.email, // sementara pakai email
-    balance: 0 // default dulu
-  }}
+          user={{
+            ...user,
+            name: user.email,
+            balance: 0,
+          }}
           activeBill={null}
           activeSummary={null}
           recentBills={[]}
