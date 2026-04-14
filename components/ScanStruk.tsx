@@ -65,11 +65,11 @@ export default function ScanStruk() {
       if (!clean) continue;
       if (blacklist.some((b) => lower.includes(b))) continue;
 
-      const match = clean.match(/^(\d+)\s+(.+)\s+(\d[\d.]*)$/);
+const match = clean.match(/^(\d+)\s+(.+)\s+([\d.,]+)$/);
       if (!match) continue;
 
       const name = match[2].trim();
-      const price = parseInt(match[3].replace(/\./g, ""));
+     const price = parseInt(match[3].replace(/[.,]/g, ""));
 
       if (isNaN(price)) continue;
 
