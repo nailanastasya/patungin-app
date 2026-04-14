@@ -1,42 +1,45 @@
-import { prisma } from "@/lib/prisma"
+"use client"
+
+import { useEffect, useState } from "react"
 import { Sidebar } from "@/components/SideBar"
 import { TopBar } from "@/components/TopBar"
 import Dashboard from "@/components/Dashboard"
 
-export default async function DashboardPage() {
-  const user = await prisma.user.findFirst()
+export default function DashboardPage() {
+  const [user, setUser] = useState<any>(null)
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user")
+
+    if (storedUser) {
+      setUser(JSON.parse(storedUser))
+    }
+  }, [])
 
   if (!user) {
-    return <div className="p-6">Tidak ada data</div>
+    return <div>Silakan login dulu</div>
   }
 
   return (
-    <div className="flex">
-      
-      {/* SIDEBAR */}
+    <div>
       <Sidebar />
 
-      {/* MAIN AREA */}
-      <div className="flex-1 flex flex-col min-h-screen md:ml-64">
-        
-        {/* TOPBAR */}
+      <div className="ml-64">
         <TopBar />
-
-        {/* CONTENT */}
-        <main className="flex-1 p-4 md:p-6 pt-24 md:pt-6">
-          <Dashboard
-            user={{
-              ...user,
-              name: user.email, // sementara
-              balance: 0
-            }}
-            activeBill={null}
-            activeSummary={null}
-            recentBills={[]}
-          />
-        </main>
-
       </div>
+
+      <main className="ml-64 pt-20 p-6">
+        <Dashboard
+          user={{
+            ...user,
+            name: user.email,
+            balance: 0
+          }}
+          activeBill={null}
+          activeSummary={null}
+          recentBills={[]}
+        />
+      </main>
     </div>
   )
 }
