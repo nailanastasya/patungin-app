@@ -15,7 +15,7 @@ export default function InputMethodPage() {
     {
       id: 'scan',
       title: 'Scan Struk',
-      description: 'Scan langsung dari kamera (coming soon)',
+      description: 'Scan directly from the camera (coming soon)',
       icon: Scan,
       color: 'bg-secondary-container',
       textColor: 'text-on-surface',
@@ -26,11 +26,11 @@ export default function InputMethodPage() {
     {
       id: 'upload',
       title: 'Upload Foto',
-      description: "Upload struk dari gallery lalu kita scan otomatis",
+      description: "Upload the receipt from the gallery, and we'll scan it automatically",
       icon: ImageIcon,
       color: 'bg-gradient-to-br from-primary-container to-primary',
       textColor: 'text-white',
-      buttonText: 'Pilih Gambar',
+      buttonText: 'Choose an Image',
       buttonClass: 'bg-white text-primary hover:bg-cyan-50',
       isPrimary: true,
       action: () => router.push(`/bill/${id}/scan`) // 🔥 INI YANG PENTING
@@ -38,7 +38,7 @@ export default function InputMethodPage() {
     {
       id: 'manual',
       title: 'Input Manual',
-      description: 'Input item satu-satu (coming soon)',
+      description: 'Enter items manually (coming soon)',
       icon: Keyboard,
       color: 'bg-tertiary-container',
       textColor: 'text-on-surface',
@@ -51,11 +51,11 @@ export default function InputMethodPage() {
   return (
     <div className="p-12 max-w-7xl mx-auto">
       <header className="mb-12">
-        <h2 className="text-4xl font-extrabold mb-2">
-          Pilih Cara Input
+        <h2 className="text-4xl font-extrabold mb-3">
+          Input Method
         </h2>
         <p className="text-gray-500 text-lg max-w-2xl">
-          Pilih cara untuk memasukkan item dari struk kamu
+          Choose a way to enter items from your receipt
         </p>
       </header>
 
@@ -109,7 +109,7 @@ export default function InputMethodPage() {
       <div className="bg-gray-100 rounded-xl p-8 flex gap-4">
         <Lightbulb />
         <p className="text-sm">
-          Tips: Foto struk harus jelas biar OCR akurat
+          Tip: Make sure the receipt photo is clear so that OCR can work accurately
         </p>
       </div>
 
@@ -124,9 +124,9 @@ export default function InputMethodPage() {
 
         <div className="flex items-center gap-4">
           <span className="text-sm text-gray-500">
-            Butuh bantuan?
+            Need Help?
           </span>
-          <button className="w-12 h-12 bg-white rounded-full shadow">
+          <button className="w-12 h-12 bg-white rounded-full shadow flex items-center justify-center">
             <HelpCircle />
           </button>
         </div>

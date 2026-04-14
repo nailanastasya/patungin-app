@@ -137,10 +137,10 @@ export default function ScanStruk() {
     <div className="p-10 max-w-7xl mx-auto">
       <header className="mb-12">
         <h2 className="text-5xl font-extrabold tracking-tight mb-2">
-          Scan Struk
+          Scan Receipt
         </h2>
         <p className="text-lg text-outline">
-          Upload struk dan biarkan AI membaca otomatis
+          Upload your receipt and let the AI scan it automatically
         </p>
       </header>
 
@@ -217,9 +217,9 @@ export default function ScanStruk() {
             <h3 className="text-xl font-bold mb-6">How it works</h3>
 
             <ol className="space-y-4 text-sm text-outline">
-              <li>1. Upload struk</li>
-              <li>2. AI membaca item</li>
-              <li>3. Assign ke teman</li>
+              <li>1. Upload receipt</li>
+              <li>2. AI scans items</li>
+              <li>3. Assign to a friend</li>
             </ol>
           </div>
         </div>

@@ -6,12 +6,11 @@ export async function GET(
   context: { params: Promise<{ id: string }> }
 ) {
   try {
-    // ✅ FIX NEXT.JS TERBARU (params adalah Promise)
+    // ✅ NEXT 14+
     const { id } = await context.params
 
     console.log("PARAMS ID:", id)
 
-    // optional safety check
     if (!id) {
       return NextResponse.json(
         { error: "Missing id" },
@@ -19,7 +18,6 @@ export async function GET(
       )
     }
 
-    // ambil data bill + relasi
     const bill = await prisma.bill.findUnique({
       where: { id },
       include: {
@@ -28,7 +26,6 @@ export async function GET(
       },
     })
 
-    // kalau tidak ketemu
     if (!bill) {
       return NextResponse.json(
         { message: "Bill not found" },
@@ -37,12 +34,16 @@ export async function GET(
     }
 
     return NextResponse.json(bill)
-  } catch (error: any) {
-    console.error("🔥 GET BILL ERROR:", error)
+
+  } catch (error: unknown) {
+    // ✅ FIX: no any lagi
+    const err = error as Error
+
+    console.error("🔥 GET BILL ERROR:", err.message)
 
     return NextResponse.json(
       {
-        error: error?.message || "Internal Server Error",
+        error: err.message || "Internal Server Error",
       },
       { status: 500 }
     )

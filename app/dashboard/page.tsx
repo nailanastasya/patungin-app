@@ -7,32 +7,36 @@ export default async function DashboardPage() {
   const user = await prisma.user.findFirst()
 
   if (!user) {
-    return <div>Tidak ada data</div>
+    return <div className="p-6">Tidak ada data</div>
   }
 
   return (
-    <div>
-      {/* Sidebar */}
+    <div className="flex">
+      
+      {/* SIDEBAR */}
       <Sidebar />
 
-      {/* TopBar */}
-      <div className="ml-64">
+      {/* MAIN AREA */}
+      <div className="flex-1 flex flex-col min-h-screen md:ml-64">
+        
+        {/* TOPBAR */}
         <TopBar />
-      </div>
 
-      {/* Main Content */}
-      <main className="ml-64 pt-20 p-6">
-        <Dashboard
-         user={{
-    ...user,
-    name: user.email, // sementara pakai email
-    balance: 0 // default dulu
-  }}
-          activeBill={null}
-          activeSummary={null}
-          recentBills={[]}
-        />
-      </main>
+        {/* CONTENT */}
+        <main className="flex-1 p-4 md:p-6 pt-24 md:pt-6">
+          <Dashboard
+            user={{
+              ...user,
+              name: user.email, // sementara
+              balance: 0
+            }}
+            activeBill={null}
+            activeSummary={null}
+            recentBills={[]}
+          />
+        </main>
+
+      </div>
     </div>
   )
 }

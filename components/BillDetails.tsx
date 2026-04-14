@@ -27,8 +27,9 @@ export default function BillDetails({
 
   return (
     <div className="bg-white rounded-xl p-6 shadow flex flex-col h-full">
+
       {/* HEADER */}
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between mb-6">
         <h3 className="text-xl font-bold">{name}&apos;s Share</h3>
         <span className="text-sm text-gray-500">
           {items.length} items
@@ -37,20 +38,26 @@ export default function BillDetails({
 
       {/* ITEMS */}
       <div className="flex-1 space-y-4">
-        {items.map((item) => (
-          <div key={item.id} className="flex justify-between">
-            <div>
-              <p className="font-semibold">{item.name}</p>
-              <p className="text-xs text-gray-400">
-                {item.description}
+        {items.length === 0 ? (
+          <p className="text-gray-400 text-sm">
+            Belum ada item
+          </p>
+        ) : (
+          items.map((item) => (
+            <div key={item.id} className="flex justify-between">
+              <div>
+                <p className="font-semibold">{item.name}</p>
+                <p className="text-xs text-gray-400">
+                  {item.description}
+                </p>
+              </div>
+
+              <p className="font-bold">
+                {format(item.amount)}
               </p>
             </div>
-
-            <p className="font-bold">
-              {format(item.amount)}
-            </p>
-          </div>
-        ))}
+          ))
+        )}
       </div>
 
       {/* TOTAL */}

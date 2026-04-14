@@ -47,13 +47,13 @@ const Navbar = ({ onLoginClick }: { onLoginClick: () => void }) => (
             <button 
           className="font-headline font-bold text-primary transition-transform active:scale-95"
         >
-          Masuk
+          Log In
         </button>
          </Link>
      
         <Link href="/register">
  <button className="bg-linear-to-r from-primary to-primary-container text-white px-6 py-2.5 rounded-full font-headline font-bold shadow-lg transition-transform active:scale-95">
-          Mulai Sekarang
+          Sign Up
         </button>
 </Link>
       </div>
@@ -81,10 +81,10 @@ const Hero = () => (
         </p>
         <div className="flex flex-wrap gap-4">
           <button className="bg-linear-to-r from-primary to-primary-container text-white px-10 py-4 rounded-full font-headline font-bold text-lg shadow-xl hover:shadow-primary/20 transition-all active:scale-95">
-            Mulai Sekarang
+            Start
           </button>
           <button className="bg-surface-container-lowest text-primary px-10 py-4 rounded-full font-headline font-bold text-lg border border-outline-variant/15 transition-all hover:bg-surface-container-low active:scale-95">
-            Lihat Demo
+            View Demo
           </button>
         </div>
         <div className="mt-12 flex items-center gap-4">

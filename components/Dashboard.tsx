@@ -2,7 +2,7 @@
 import { motion } from "framer-motion"
 
 /* =======================
-   TYPES (SESUAI PRISMA)
+   TYPES
 ======================= */
 
 type ParticipantType = {
@@ -56,56 +56,54 @@ export default function Dashboard({
   recentBills,
 }: DashboardProps) {
   return (
-    <div className="p-10 space-y-10 max-w-7xl mx-auto">
+    <div className="p-4 md:p-10 space-y-8 max-w-7xl mx-auto">
 
       {/* HEADER */}
-      <section className="flex justify-between items-end">
+      <section className="flex flex-col md:flex-row md:justify-between md:items-end gap-2">
         <div>
-          <h2 className="text-4xl font-black mb-2">
+          <h2 className="text-2xl md:text-4xl font-black">
             Halo, {user.name}!
           </h2>
-          <p className="text-gray-500 text-lg">
+          <p className="text-gray-500 text-sm md:text-lg">
             Waktunya melunasi tagihan bareng teman-teman.
           </p>
         </div>
       </section>
 
       {/* GRID */}
-      <div className="grid grid-cols-12 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
         {/* ACTIVE BILL */}
         {activeBill && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="col-span-12 lg:col-span-8 bg-linear-to-br from-primary to-primary-dim rounded-xl p-8 text-white shadow-xl"
+            className="lg:col-span-8 bg-gradient-to-br from-primary to-primary-container rounded-xl p-6 md:p-8 text-white shadow-xl"
           >
-            <div>
-              <span className="bg-white/20 px-3 py-1 rounded-full text-xs font-bold uppercase">
-                Tagihan Aktif
-              </span>
+            <span className="bg-white/20 px-3 py-1 rounded-full text-xs font-bold uppercase">
+              Tagihan Aktif
+            </span>
 
-              <h3 className="text-3xl font-black mt-4">
-                {activeBill.title}
-              </h3>
+            <h3 className="text-2xl md:text-3xl font-black mt-4">
+              {activeBill.title}
+            </h3>
 
-              <p className="text-white/80 mt-1">
-                Bersama {activeBill.participants.length} orang
-              </p>
-            </div>
+            <p className="text-white/80 mt-1 text-sm md:text-base">
+              Bersama {activeBill.participants.length} orang
+            </p>
 
-            <div className="flex justify-between items-end mt-10">
+            <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-4 mt-8">
               <div>
                 <span className="text-sm opacity-80">
                   Total Tagihan Kamu
                 </span>
-                <h2 className="text-5xl font-black">
+                <h2 className="text-3xl md:text-5xl font-black">
                   Rp{" "}
                   {activeSummary?.totalAmount.toLocaleString() ?? 0}
                 </h2>
               </div>
 
-              <button className="bg-white text-black px-6 py-3 rounded-full font-bold">
+              <button className="bg-white text-black px-6 py-3 rounded-full font-bold w-full md:w-auto">
                 Bayar Sekarang
               </button>
             </div>
@@ -113,20 +111,20 @@ export default function Dashboard({
         )}
 
         {/* SALDO */}
-        <div className="col-span-12 lg:col-span-4 bg-surface-container-highest rounded-xl p-6 shadow-sm">
-          <p className="text-sm text-gray-500">Saldo Kamu</p>
-          <h3 className="text-2xl font-black mt-2">
+        <div className="lg:col-span-4 bg-surface-container-highest rounded-xl p-6 shadow-sm">
+          <p className="text-sm text-gray-500">Tagihan Kamu</p>
+          <h3 className="text-xl md:text-2xl font-black mt-2">
             Rp {user.balance.toLocaleString()}
           </h3>
         </div>
 
       </div>
 
-      {/* RIWAYAT */}
-      <section className="space-y-6">
+      {/* HISTORY */}
+      <section className="space-y-4 md:space-y-6">
         <div className="flex justify-between items-center">
-          <h3 className="text-2xl font-black">
-            Riwayat Patungan
+          <h3 className="text-xl md:text-2xl font-black">
+            History Patungin
           </h3>
         </div>
 
@@ -137,11 +135,11 @@ export default function Dashboard({
               key={bill.id}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: index * 0.1 }}
-              className="grid grid-cols-12 gap-4 items-center bg-white px-6 py-4 rounded-lg"
+              transition={{ delay: index * 0.05 }}
+              className="flex flex-col md:grid md:grid-cols-12 gap-2 md:gap-4 bg-white px-4 md:px-6 py-4 rounded-lg"
             >
               {/* TITLE */}
-              <div className="col-span-5">
+              <div className="md:col-span-5">
                 <h4 className="font-bold">
                   {bill.title}
                 </h4>
@@ -151,17 +149,17 @@ export default function Dashboard({
               </div>
 
               {/* DATE */}
-              <div className="col-span-3 text-center text-sm">
+              <div className="md:col-span-3 text-sm md:text-center text-gray-500">
                 {new Date(bill.date).toLocaleDateString()}
               </div>
 
               {/* TOTAL */}
-              <div className="col-span-2 text-right font-bold">
+              <div className="md:col-span-2 font-bold md:text-right">
                 Rp {bill.total.toLocaleString()}
               </div>
 
               {/* STATUS */}
-              <div className="col-span-2 text-right">
+              <div className="md:col-span-2 md:text-right">
                 <span
                   className={`px-3 py-1 rounded-full text-xs font-bold ${
                     bill.status === "LUNAS"

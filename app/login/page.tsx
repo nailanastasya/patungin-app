@@ -59,9 +59,9 @@ export default function LoginPage() {
               <h1 className="font-headline font-black italic text-4xl text-primary tracking-tighter mb-2">
                 Patungin
               </h1>
-              <p className="text-outline font-medium tracking-wide font-label uppercase text-xs">
+              {/* <p className="text-outline font-medium tracking-wide font-label uppercase text-xs">
                 The Neon Oasis
-              </p>
+              </p> */}
             </div>
 
             {/* FORM */}
@@ -96,7 +96,7 @@ export default function LoginPage() {
                   onClick={handleLogin}
                   className="w-full py-5 px-8 rounded-full bg-gradient-to-r from-primary to-primary-container text-white font-headline font-extrabold text-xl shadow-lg shadow-primary/20 active:scale-[0.98] transition-all flex items-center justify-center gap-3"
                 >
-                  Masuk
+                 Log In
                   <ArrowRight className="w-6 h-6" />
                 </button>
               </div>

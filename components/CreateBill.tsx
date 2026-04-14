@@ -120,178 +120,162 @@ export function CreateBill() {
   }
 }
 
-  return (
-    <div className="p-12 max-w-7xl mx-auto">
-      <header className="flex justify-between items-center mb-12">
-        <div>
-          <span className="text-outline font-bold text-sm tracking-widest uppercase mb-2 block">Step 1 of 3</span>
-          <h2 className="text-4xl font-black text-on-surface tracking-tight font-headline">Create New Bill</h2>
+return (
+  <div className="max-w-7xl mx-auto space-y-10">
+
+    {/* HEADER */}
+    <header>
+      <span className="text-outline text-xs uppercase tracking-widest">
+        Step 1 of 3
+      </span>
+      <h2 className="text-3xl md:text-5xl font-black font-headline mt-2">
+        Create New Bill
+      </h2>
+    </header>
+
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+      {/* LEFT */}
+      <section className="lg:col-span-7 space-y-8">
+
+        {/* BILL CARD */}
+        <div className="bg-surface-container-lowest rounded-2xl p-8 shadow relative overflow-hidden">
+
+          {/* glow */}
+          <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/10 blur-3xl rounded-full"></div>
+
+          <label className="text-sm font-bold uppercase text-outline mb-4 block">
+            Bill Information
+          </label>
+
+          <input
+            className="w-full bg-transparent outline-none text-3xl md:text-5xl font-black"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+
+          <div className="flex items-center gap-2 mt-4 text-outline">
+            <Calendar className="w-4 h-4" />
+            <span>Today</span>
+          </div>
         </div>
-      </header>
 
-      <div className="grid grid-cols-12 gap-8 items-start">
-        
-        {/* LEFT */}
-        <section className="col-span-12 lg:col-span-7 space-y-8">
+        {/* FRIENDS */}
+        <div className="bg-surface-container-lowest rounded-2xl p-8 shadow">
 
-          {/* BILL INFO */}
-          <div className="bg-surface-container-lowest rounded-xl p-8 shadow relative overflow-hidden group">
-            <div className="absolute -right-12 -top-12 w-48 h-48 bg-primary/5 rounded-full blur-3xl"></div>
+          {/* INPUT */}
+          <div className="flex flex-col md:flex-row gap-3 mb-8">
 
-            <label className="block text-outline font-headline font-bold text-sm uppercase mb-4">
-              Bill Information
-            </label>
-
-            <input 
-              className="w-full bg-transparent border-none text-5xl font-black"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+            <input
+              value={inputName}
+              onChange={(e) => setInputName(e.target.value)}
+              placeholder="Add friend..."
+              className="flex-1 border border-outline-variant/30 rounded-full px-5 py-3 focus:ring-2 focus:ring-primary/20 outline-none"
             />
 
-            <div className="flex items-center gap-2 mt-4 text-outline">
-              <Calendar className="w-4 h-4" />
-              <span>Today</span>
-            </div>
+            <button
+              onClick={addFriend}
+              className="bg-primary text-white px-6 py-3 rounded-full font-bold shadow hover:scale-105 active:scale-95 transition"
+            >
+              Add
+            </button>
           </div>
 
-          {/* TAX */}
-          {/* <div className="bg-surface-container-low rounded-xl p-8 space-y-6">
-            <div className="flex justify-between items-end">
-              <div>
-                <label className="text-sm font-bold uppercase">Tax & Service</label>
-                <p className="text-sm">Applied to total</p>
-              </div>
+          {/* LIST */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
-              <div className="flex items-center gap-4 bg-white rounded-full p-2">
-                <button onClick={() => setTax(Math.max(0, tax - 1))}>
-                  <Minus />
+            {friends.length === 0 && (
+              <p className="text-outline text-sm">Belum ada teman</p>
+            )}
+
+            {friends.map((friend) => {
+              const isSelected = selectedFriends.includes(friend.id)
+
+              return (
+                <button
+                  key={friend.id}
+                  onClick={() => toggleFriend(friend.id)}
+                  className={cn(
+                    "flex items-center gap-4 p-4 rounded-2xl transition-all duration-300",
+                    isSelected
+                      ? "bg-primary text-white shadow-lg"
+                      : "bg-surface-container-high hover:shadow-md"
+                  )}
+                >
+                  {/* AVATAR FIX */}
+                  <div className="h-12 w-12 rounded-full bg-white/20 flex items-center justify-center text-lg font-bold">
+                    {friend.name.charAt(0).toUpperCase()}
+                  </div>
+
+                  {/* TEXT */}
+                  <div className="flex-1 text-left">
+                    <h4 className="font-bold leading-none">
+                      {friend.name}
+                    </h4>
+
+                    <span className="text-xs opacity-70">
+                      {isSelected ? "Selected" : "Tap to add"}
+                    </span>
+                  </div>
+
+                  {/* ICON */}
+                  {isSelected ? (
+                    <CheckCircle className="shrink-0" />
+                  ) : (
+                    <Plus className="shrink-0" />
+                  )}
                 </button>
-
-                <span className="text-3xl font-black w-16 text-center">
-                  {tax}%
-                </span>
-
-                <button onClick={() => setTax(Math.min(100, tax + 1))}>
-                  <Plus />
-                </button>
-              </div>
-            </div>
-
-            <div className="h-4 bg-gray-200 rounded-full">
-              <div className="h-full bg-blue-500" style={{ width: `${tax}%` }} />
-            </div>
-          </div> */}
-
-          {/* FRIENDS */}
-          <div className="bg-surface-container-lowest rounded-xl p-8 shadow">
-
-            <div className="flex justify-between mb-8">
-              <div>
-                <label className="text-sm font-bold uppercase">Invite Friends</label>
-                <p className="text-sm">Who are we splitting with today?</p>
-              </div>
-
-              <div className="flex gap-2">
-                <input
-                  value={inputName}
-                  onChange={(e) => setInputName(e.target.value)}
-                  placeholder="Add friend..."
-                  className="border rounded-full px-4"
-                />
-                <button onClick={addFriend} className="bg-black text-white px-4 rounded-full">
-                  Add
-                </button>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {friends.length === 0 && (
-                <p className="text-gray-400 text-sm">Belum ada teman</p>
-              )}
-
-              {friends.map((friend) => {
-                const isSelected = selectedFriends.includes(friend.id)
-
-                return (
-                  <button
-                    key={friend.id}
-                    onClick={() => toggleFriend(friend.id)}
-                    className={cn(
-                      "flex items-center gap-4 p-4 rounded-xl",
-                      isSelected 
-                        ? "bg-primary text-white" 
-                        : "bg-gray-100"
-                    )}
-                  >
-                    <div className="h-12 w-12 rounded-full bg-gray-300 flex items-center justify-center">
-                      {friend.name[0]}
-                    </div>
-
-                    <div className="flex-1">
-                      <h4 className="font-bold">{friend.name}</h4>
-                      <span className="text-xs">
-                        {isSelected ? 'Selected' : 'Click to add'}
-                      </span>
-                    </div>
-
-                    {isSelected ? <CheckCircle /> : <Plus />}
-                  </button>
-                )
-              })}
-            </div>
+              )
+            })}
           </div>
-        </section>
+        </div>
 
-        {/* RIGHT */}
-        <section className="col-span-12 lg:col-span-5 sticky top-8">
-          <div className="bg-black text-white rounded-xl p-8 shadow-2xl">
+      </section>
 
-            <h3 className="text-xl font-bold mb-8">Summary Preview</h3>
+      {/* RIGHT */}
+      <section className="lg:col-span-5 sticky top-6">
 
-            <div className="space-y-6">
+        <div className="bg-gradient-to-br from-primary to-primary-container text-white rounded-2xl p-8 shadow-2xl space-y-6">
 
-              <div className="flex justify-between border-b pb-4">
-                <span>Bill Title</span>
-                <span>{title}</span>
-              </div>
+          <h3 className="text-xl font-bold">
+            Summary Preview
+          </h3>
 
-              <div className="flex justify-between border-b pb-4">
-                <span>Friends Invited</span>
-                <span>{selectedData.length}</span>
-              </div>
+          <div className="space-y-4">
 
-              <div className="flex justify-between">
-                <span>Tax</span>
-                <span>{tax}%</span>
-              </div>
-
-              <button
-                onClick={handleNext}
-                className="w-full bg-blue-500 py-4 rounded-full flex justify-center gap-2"
-              >
-                Selanjutnya <ArrowRight />
-              </button>
-
-              <button
-                onClick={handleSaveDraft}
-                disabled={isSavingDraft}
-                className="w-full bg-white/10 py-4 rounded-full flex justify-center gap-2"
-              >
-                {isSavingDraft && <Loader2 className="animate-spin" />}
-                Save as Draft
-              </button>
-
+            <div className="flex justify-between border-b border-white/20 pb-3">
+              <span>Bill Title</span>
+              <span className="font-bold">{title}</span>
             </div>
+
+            <div className="flex justify-between border-b border-white/20 pb-3">
+              <span>Friends</span>
+              <span className="font-bold">
+                {selectedData.length}
+              </span>
+            </div>
+
           </div>
 
-          <div className="mt-8 bg-gray-100 p-6 rounded-xl flex gap-4">
-            <Lightbulb />
-            <p className="text-sm">
-              Adding a clear title helps your friends find the bill faster.
-            </p>
-          </div>
-        </section>
-      </div>
+          <button
+            onClick={handleNext}
+            className="w-full bg-white text-primary font-bold py-4 rounded-full flex justify-center items-center gap-2 hover:scale-[1.02] active:scale-95 transition"
+          >
+            Next <ArrowRight />
+          </button>
+
+        </div>
+
+        {/* TIPS */}
+        <div className="mt-6 bg-surface-container-low p-6 rounded-xl flex gap-4">
+          <Lightbulb />
+          <p className="text-sm">
+            Nama bill yang jelas bikin teman kamu lebih cepat ngerti
+          </p>
+        </div>
+
+      </section>
     </div>
-  )
+  </div>
+)
 }
